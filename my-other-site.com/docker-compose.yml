@@ -14,7 +14,7 @@
 #         - 9000
 #     volumes:
 #         - /srv/www/my-other-site.com:/var/www/html
-# version: '2' # version of docker-compose to use
+version: '2' # version of docker-compose to use
 services: # configuring each container
   db: # name of our mysql container
     image: mysql:5.7 # which image to pull, in this case specifying v. 5.7
