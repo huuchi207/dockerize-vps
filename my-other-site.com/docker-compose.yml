@@ -43,3 +43,7 @@ services: # configuring each container
       VIRTUAL_POST: 3000
     expose:
       - 3000
+networks:
+  default:
+    external:
+      name: nginx-proxy2
