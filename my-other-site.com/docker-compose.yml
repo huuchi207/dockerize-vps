@@ -40,5 +40,6 @@ services: # configuring each container
       WORDPRESS_DB_USER: wordpress
     environment:
       VIRTUAL_HOST: mywilldomain.tk,www.mywilldomain.tk
-    # expose:
-    #   - 3000
+      VIRTUAL_POST: 3000
+    expose:
+      - 3000
