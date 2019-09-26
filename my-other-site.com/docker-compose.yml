@@ -1,45 +1,35 @@
-# nginx:
-#     build: ./nginx/
-#     ports:
-#         - 8082:80
-#     links:
-#         - php
-#     volumes_from:
-#         - php
-#     environment:
-#         - VIRTUAL_HOST=my-other-site.com,www.my-other-site.com
-# php:
-#     build: ./php/
-#     expose:
-#         - 9000
-#     volumes:
-#         - /srv/www/my-other-site.com:/var/www/html
-version: '2' # version of docker-compose to use
-services: # configuring each container
-  db: # name of our mysql container
-    image: mysql:5.7 # which image to pull, in this case specifying v. 5.7
-    volumes: # data to map to the container
-      - ./data:/docker-entrypoint-initdb.d # where to find our data -- we'll talk more about this
-    restart: always # always restart the container after reboot
-    environment: # environment variables -- mysql options in this case
-      MYSQL_ROOT_PASSWORD: wordpress
-      MYSQL_DATABASE: wordpress
-      MYSQL_USER: wordpress
-      MYSQL_PASSWORD: wordpress
+version: "3"
 
-  wordpress: # name of our wordpress container
-    depends_on: # container dependencies that need to be running first
-      - db
-    image: wordpress:latest # image used by our container
-    ports:
-      - "8011:80" # setting our ports for networking
+services:
+  db_node_domain:
+    image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/mysql
     restart: always
     environment:
-      WORDPRESS_DB_HOST: db:3306 # default mysql port
-      WORDPRESS_DB_PASSWORD: wordpress
-      WORDPRESS_DB_USER: wordpress
-    environment:
-      VIRTUAL_HOST: mywilldomain.tk,www.mywilldomain.tk
-      VIRTUAL_POST: 3000
+      MYSQL_ROOT_PASSWORD: PASSWORD
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: PASSWORD
+    container_name: wordpress_db
+
+  wordpress:
+    depends_on:
+      - db_node_domain
+    image: wordpress:latest
     expose:
-      - 3000
+      - 80
+    restart: always
+    environment:
+      VIRTUAL_HOST: mywilldomain.tk
+      WORDPRESS_DB_HOST: db_node_domain:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: PASSWORD
+    container_name: wordpress
+volumes:
+  db_data:
+
+networks:
+  default:
+    external:
+      name: nginx-proxy-ssdnodes
