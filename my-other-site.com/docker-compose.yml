@@ -39,6 +39,8 @@ services:
       WORDPRESS_DB_HOST: db_node_domain:3306
       WORDPRESS_DB_USER: wordpress
       WORDPRESS_DB_PASSWORD: PASSWORD
+      LETSENCRYPT_HOST: mywilldomain.tk
+      LETSENCRYPT_EMAIL: huuchi207@gmail.com
     container_name: wordpress_test2  
 volumes:
   db_data:
