@@ -2,7 +2,7 @@ version: "3"
 services:
   nginx-proxy:
     image: jwilder/nginx-proxy
-    container_name: nginx-proxy
+    container_name: nginx-proxy-ssdnodes
     ports:
       - "80:80"
     volumes:
