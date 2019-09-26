@@ -26,6 +26,20 @@ services:
       WORDPRESS_DB_USER: wordpress
       WORDPRESS_DB_PASSWORD: PASSWORD
     container_name: wordpress
+
+  wordpress_test2:
+    depends_on:
+      - db_node_domain
+    image: wordpress:latest
+    expose:
+      - 80
+    restart: always
+    environment:
+      VIRTUAL_HOST: mywilldomain.tk
+      WORDPRESS_DB_HOST: db_node_domain:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: PASSWORD
+    container_name: wordpress_test2  
 volumes:
   db_data:
 
