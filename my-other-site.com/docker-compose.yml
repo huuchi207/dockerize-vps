@@ -25,6 +25,8 @@ services:
       WORDPRESS_DB_HOST: db_node_domain:3306
       WORDPRESS_DB_USER: wordpress
       WORDPRESS_DB_PASSWORD: PASSWORD
+      LETSENCRYPT_HOST: chamsocbabauhuonghuong.com
+      LETSENCRYPT_EMAIL: huuchi207@gmail.com
     container_name: wordpress
 
   wordpress_test2:
